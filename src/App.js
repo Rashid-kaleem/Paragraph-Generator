@@ -1,24 +1,51 @@
-import logo from './logo.svg';
+import { useState } from 'react';
 import './App.css';
+import data from './Data.js';
 
 function App() {
+
+ 
+  const [number,setNumber] = useState(1);
+  const [text,setText] = useState([data]);
+
+  const inputHandler = (event) =>{
+    setNumber(event.target.value);
+  
+  }
+
+  const submitHandler = (event)=>{
+    event.preventDefault();
+    let amount = parseInt(number)
+    if(number<0){
+       amount = 1
+    }
+    if(number>8){
+      amount = 8
+    }
+
+    setText(data.slice(0,number));
+
+  } 
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <section className='section-center'>
+      <h2>Lorem Ipsum Paragraph</h2>
+      <form onSubmit={submitHandler}>
+        <input type='number' onChange={inputHandler}></input>
+        <button className='btn'>Generate</button>
+      </form>
+
+      {text.map((Paragraph,index)=>{
+
+       return <p key={index}>{Paragraph}</p>
+
+      })}
+
+
+    </section>
+   
+   
   );
 }
 
